@@ -6,20 +6,20 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/flytekitplugins-dask-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/flytekitplugins-dask-{{ version }}.tar.gz
   sha256: bd9589d3a7c46e53703f68363caf45c4d49df264f767d9e6eb41b67a033e59c2
 
 build:
   noarch: python
   script: {{ PYTHON }} -m pip install . -vv
-  number: 0
+  number: 1
 
 requirements:
   host:
-    - python >=3.8
+    - python {{ python_min }}
     - pip
   run:
-    - python >=3.8
+    - python >={{ python_min }}
     - flyteidl >=1.3.2
     - flytekit >=1.3.0,<2.0.0
     - dask-core >=2022.10.2
@@ -31,6 +31,7 @@ test:
     - pip check
   requires:
     - pip
+    - python {{ python_min }}
 
 about:
   home: https://github.com/flyteorg/flytekit/tree/master/plugins/flytekit-dask
